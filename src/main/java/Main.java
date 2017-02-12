@@ -1,75 +1,89 @@
+import Response.GenericResponse;
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.ServerAddress;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 
+import static spark.debug.DebugScreen.*;
+
 import org.bson.Document;
-import java.util.Arrays;
-import com.mongodb.Block;
 
-import com.mongodb.client.MongoCursor;
-import static com.mongodb.client.model.Filters.*;
-import com.mongodb.client.result.DeleteResult;
-import static com.mongodb.client.model.Updates.*;
-import com.mongodb.client.result.UpdateResult;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-import spark.ModelAndView;
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.stop;
+import static spark.Spark.*;
+import static spark.Spark.staticFiles;
+
+import request.LoginRequest;
+import utils.JsonTransformer;
+import utils.ViewUtil;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        //CONFIG
+        staticFiles.location("/public");
+        staticFiles.expireTime(0L);
+        enableDebugScreen();
+
+        //DB CONFIG
+
+        MongoClientURI connectionString = new MongoClientURI("mongodb://admin:admin@ds147599.mlab.com:47599/sof2");
+//            MongoClientURI connectionString = new MongoClientURI("mongodb://diego:123@ds033259.mlab.com:33259/soft2");
+        MongoClient mongoClient = new MongoClient(connectionString);
+        MongoDatabase database = mongoClient.getDatabase("soft2");
+        MongoCollection<Document> usuarioColl = database.getCollection("usuarios");
+        MongoCollection<Document> tesisColl = database.getCollection("tesis");
+
+        //RUTAS
+
         get("/parar", (req, resp) -> {
             stop();
             return "";
         });
-        post("/index", (req, resp) -> {
-            String usuario = req.queryParams("user");
-            String pass = req.queryParams("pass");
 
-            MongoClientURI connectionString = new MongoClientURI("mongodb://diego:123@ds033259.mlab.com:33259/soft2");
-            MongoClient mongoClient = new MongoClient(connectionString);
-            MongoDatabase database = mongoClient.getDatabase("soft2");
-            MongoCollection<Document> collection = database.getCollection("login");
+        post("/login", (req, resp) -> {
+            System.out.println("BODY");
+            System.out.println(req.body());
+            LoginRequest body = new Gson().fromJson(req.body(), LoginRequest.class);
 
             Document filtro = new Document();
-            filtro.append("usuario", usuario);
-            filtro.append("pass", pass);
+            filtro.append("usuario", /*body.getUsuario()*/"diego");
+            filtro.append("pass", /*body.getPass()*/"123");
 
-            Document myDoc = collection.find(filtro).first();
+            Document myDoc = usuarioColl.find(filtro).first();
 
             System.out.println(myDoc.get("usuario"));
             System.out.println(myDoc.get("pass"));
 
-            System.out.println(usuario);
-            System.out.println(pass);
+            System.out.println("body");
+            System.out.println(body);
 
-            if (myDoc == null) {
-                return new ModelAndView(null, "index.html");
+            return new GenericResponse("Login Exitoso", true);
 
-            } else {
-                return new ModelAndView(null, "main.html");
-            }
+        }, new JsonTransformer());
 
+        get("/login", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(req, model, "/templates/login.html");
         });
-        get("/index", (req, resp) -> {
-            /*  List<Post> listaPosts = new ArrayList<>();
-             listaPosts.add(new Post("post1","01/01/2017"));
-             listaPosts.add(new Post("post2","01/01/2018"));
-             HashMap<String,Object> map = new HashMap<String,Object>();
-             map.put("posts",listaPosts);*/
-            return new ModelAndView(null, "index.html");
 
-        }, new Jinja2TemplateEngine());
+        get("/index", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(req, model, "/templates/tesis.vm");
+        });
+
+        get("/registro", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(req, model, "/templates/registro.vm");
+        });
+
+        get("/asesores", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(req, model, "/templates/asesores.vm");
+        });
     }
 
 }
