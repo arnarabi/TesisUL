@@ -24,6 +24,7 @@ public class Main {
     public static void main(String[] args) {
 
         //CONFIG
+        port(getHerokuAssignedPort());
         staticFiles.location("/public");
         staticFiles.expireTime(0L);
         enableDebugScreen();
@@ -84,6 +85,14 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             return ViewUtil.render(req, model, "/templates/asesores.vm");
         });
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 
 }
