@@ -12,6 +12,7 @@ import model.Asesor;
 import org.bson.Document;
 
 import java.util.*;
+import model.Feedback;
 
 import static spark.Spark.*;
 import static spark.Spark.staticFiles;
@@ -75,6 +76,12 @@ public class Main {
 
         get("/index", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
+            List<Feedback> comentario = new ArrayList<>();
+            for (Document document : feedbackColl.find()) {
+                System.out.println(document.getString("nombre"));
+                comentario.add(new Feedback(document.getString("jurado"),document.getString("desc"),document.getString("fecha")));
+            }
+            model.putIfAbsent("feedback", comentario);
             return ViewUtil.render(req, model, "/templates/tesis.vm");
         });
 
