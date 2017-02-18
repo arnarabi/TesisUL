@@ -74,7 +74,7 @@
                 </td>
                 <td>
                     <div class="radio">
-                        <label><input type="checkbox" value=${registro.aprProfesor}></label>
+                        <label><input type="checkbox" checked=${registro.aprProfesor}></label>
                     </div>
                 </td>
                 <td>
