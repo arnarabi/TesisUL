@@ -92,7 +92,7 @@ public class Main {
             for (Document document : registroColl.find()) {
                 System.out.println(document.getString("nombre"));
                 registro.add(new Registro(document.getInteger("id"),document.getString("diahora"),
-                        document.getString("descripcion"),document.getBoolean("aprProfesor"),document.getBoolean("aprAlumno")));
+                        document.getString("descripcion"),document.getBoolean(true),document.getBoolean(true)));
             }
             model.putIfAbsent("registro", registro);
             return ViewUtil.render(req, model, "/templates/registro.vm");
