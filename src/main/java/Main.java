@@ -98,7 +98,6 @@ public class Main {
                 if (document.getInteger("aprAlumno") == 1) {
                     check2 = true;
                 }
-    System.out.println(document.getString("nombre"));
                 registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
                             document.getString("descripcion"), check1, check2));
 
