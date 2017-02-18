@@ -30,11 +30,6 @@ public class ViewUtil {
         registros.add(new Registro(3, "Mie-4pm", "Se indico uso de codigo APA", true, false));
         registros.add(new Registro(5, "Jue-2pm", "Se reviso marco teorico", false, true));
         model.putIfAbsent("registros", registros);
-        List<Asesor> asesores = new ArrayList<>();
-        asesores.add(new Asesor(1, "Hernán Quintana", "Martes", "11:00 - 12:30"));
-        asesores.add(new Asesor(2, "Julio Padilla", "Lunes", "14:30 - 15:30"));
-        asesores.add(new Asesor(3, "Jorge Irey", "Jueves", "9:00 - 11:00"));
-        model.putIfAbsent("asesores", asesores);
         return getRenderer().render(new ModelAndView(model, templatePath));
     }
 
