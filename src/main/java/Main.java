@@ -42,7 +42,7 @@ public class Main {
         MongoCollection<Document> tesisColl = database.getCollection("tesis");
         MongoCollection<Document> asesoresColl = database.getCollection("asesores");
         MongoCollection<Document> feedbackColl = database.getCollection("feedbacks");
-        MongoCollection<Document> registroColl = database.getCollection("registro");
+        MongoCollection<Document> registroColl = database.getCollection("registros");
         //RUTAS
 
         get("/parar", (req, resp) -> {
@@ -94,7 +94,7 @@ public class Main {
                 registro.add(new Registro(document.getInteger("id"),document.getString("diahora"),
                         document.getString("descripcion"),document.getBoolean(true),document.getBoolean(true)));
             }
-            model.putIfAbsent("registro", registro);
+            model.putIfAbsent("registros", registro);
             return ViewUtil.render(req, model, "/templates/registro.vm");
         });
 
