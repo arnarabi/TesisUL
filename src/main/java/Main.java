@@ -90,13 +90,22 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             List<Registro> registro = new ArrayList<>();
             for (Document document : registroColl.find()) {
-                System.out.println(document.getString("nombre"));
-                registro.add(new Registro(document.getInteger("id"),document.getString("diahora"),
-                        document.getString("descripcion"),document.getBoolean(true),document.getBoolean(true)));
-            }
-            model.putIfAbsent("registros", registro);
-            return ViewUtil.render(req, model, "/templates/registro.vm");
-        });
+                boolean check1 = false;
+                boolean check2 = false;
+                if (document.getInteger("aprProfesor") == 1) {
+                    check1 = true;
+                }
+                if (document.getInteger("aprAlumno") == 1) {
+                    check2 = true;
+                }
+    System.out.println(document.getString("nombre"));
+                registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
+                            document.getString("descripcion"), check1, check2));
+
+}
+                model.putIfAbsent("registros", registro);
+                return ViewUtil.render(req, model, "/templates/registro.vm");
+            });
 
         get("/asesores", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();

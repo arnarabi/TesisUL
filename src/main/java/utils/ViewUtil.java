@@ -17,8 +17,6 @@ public class ViewUtil {
     public static String render(Request request, Map<String, Object> model, String templatePath) {
         model.putIfAbsent("titulo", "¿Por qué Alessandra estará loca?");
         List<Feedback> feedback = new ArrayList<>();
-        feedback.add(new Feedback("Hernán Quintana", "me gustó", "11/02/2017"));
-        feedback.add(new Feedback("Jorge Irey", "muy buen tema", "29/01/2017"));
         model.putIfAbsent("feedback", feedback);
         model.putIfAbsent("estado", "Incompleto");
         List<Registro> registros = new ArrayList<>();

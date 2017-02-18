@@ -1,5 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.bson.Document;
+import utils.ViewUtil;
+
 
 public class Registro {
     private int id;
@@ -19,6 +26,7 @@ public class Registro {
         this.aprAlumno = aprAlumno;
     }
 
+   
     public int getId() {
         return id;
     }
@@ -58,4 +66,7 @@ public class Registro {
     public void setAprAlumno(boolean aprAlumno) {
         this.aprAlumno = aprAlumno;
     }
+
+   
+
 }
