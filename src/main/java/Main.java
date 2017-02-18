@@ -85,10 +85,13 @@ public class Main {
 
         get("/asesores", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
+
+            List<Asesor> asesores = new ArrayList<>();
             for (Document document : asesoresColl.find()) {
                 System.out.println(document.getString("nombre"));
-                model.put(String.valueOf(document.getInteger("id")), new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
+                asesores.add(new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
             }
+            model.putIfAbsent("asesores", asesores);
             return ViewUtil.render(req, model, "/templates/asesores.vm");
         });
     }
