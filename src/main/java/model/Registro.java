@@ -1,8 +1,6 @@
 package model;
 
-/**
- * Created by estef on 11/02/2017.
- */
+
 public class Registro {
     private int id;
     private String diahora;

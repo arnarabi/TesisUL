@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by estef on 11/02/2017.
- */
 public class ViewUtil {
     private static VelocityTemplateEngine engine;
 

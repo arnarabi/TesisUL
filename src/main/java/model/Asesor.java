@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Created by estef on 11/02/2017.
- */
 public class Asesor {
     private int id;
     private String nombre;

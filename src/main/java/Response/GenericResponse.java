@@ -1,8 +1,5 @@
 package Response;
 
-/**
- * Created by estef on 11/02/2017.
- */
 public class GenericResponse {
     String message;
     boolean error;

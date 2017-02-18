@@ -1,8 +1,6 @@
 package model;
 
-/**
- * Created by estef on 11/02/2017.
- */
+
 public class Feedback {
     private String jurado;
     private String desc;

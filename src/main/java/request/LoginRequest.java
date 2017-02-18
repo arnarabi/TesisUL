@@ -1,8 +1,6 @@
 package request;
 
-/**
- * Created by estef on 11/02/2017.
- */
+
 public class LoginRequest {
     private String usuario;
     private String pass;

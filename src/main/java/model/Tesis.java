@@ -2,9 +2,6 @@ package model;
 
 import java.util.List;
 
-/**
- * Created by estef on 11/02/2017.
- */
 public class Tesis {
     private String titulo;
     private int rating;

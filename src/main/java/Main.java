@@ -13,6 +13,7 @@ import org.bson.Document;
 
 import java.util.*;
 import model.Feedback;
+import model.Registro;
 
 import static spark.Spark.*;
 import static spark.Spark.staticFiles;
@@ -41,7 +42,7 @@ public class Main {
         MongoCollection<Document> tesisColl = database.getCollection("tesis");
         MongoCollection<Document> asesoresColl = database.getCollection("asesores");
         MongoCollection<Document> feedbackColl = database.getCollection("feedbacks");
-
+        MongoCollection<Document> registroColl = database.getCollection("registro");
         //RUTAS
 
         get("/parar", (req, resp) -> {
@@ -87,6 +88,13 @@ public class Main {
 
         get("/registro", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
+            List<Registro> registro = new ArrayList<>();
+            for (Document document : registroColl.find()) {
+                System.out.println(document.getString("nombre"));
+                registro.add(new Registro(document.getInteger("id"),document.getString("diahora"),
+                        document.getString("descripcion"),document.getBoolean("aprProfesor"),document.getBoolean("aprAlumno")));
+            }
+            model.putIfAbsent("registro", registro);
             return ViewUtil.render(req, model, "/templates/registro.vm");
         });
 
