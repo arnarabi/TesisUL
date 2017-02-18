@@ -34,9 +34,10 @@ public class Main {
         MongoClientURI connectionString = new MongoClientURI("mongodb://admin:admin@ds147599.mlab.com:47599/sof2");
 //            MongoClientURI connectionString = new MongoClientURI("mongodb://diego:123@ds033259.mlab.com:33259/soft2");
         MongoClient mongoClient = new MongoClient(connectionString);
-        MongoDatabase database = mongoClient.getDatabase("soft2");
+        MongoDatabase database = mongoClient.getDatabase("sof2");
         MongoCollection<Document> usuarioColl = database.getCollection("usuarios");
         MongoCollection<Document> tesisColl = database.getCollection("tesis");
+        MongoCollection<Document> asesoresColl = database.getCollection("asesores");
 
         //RUTAS
 
