@@ -69,7 +69,6 @@ public class Main {
 
         get("/login", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
-            System.out.println(usuarioColl.toString());
             return ViewUtil.render(req, model, "/templates/login.html");
         });
 
