@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCollection;
 
 import static spark.debug.DebugScreen.*;
 
+import model.Asesor;
 import org.bson.Document;
 
 import java.util.*;
@@ -38,6 +39,7 @@ public class Main {
         MongoCollection<Document> usuarioColl = database.getCollection("usuarios");
         MongoCollection<Document> tesisColl = database.getCollection("tesis");
         MongoCollection<Document> asesoresColl = database.getCollection("asesores");
+        MongoCollection<Document> feedbackColl = database.getCollection("feedbacks");
 
         //RUTAS
 
@@ -49,7 +51,6 @@ public class Main {
         post("/login", (req, resp) -> {
             System.out.println("BODY");
             System.out.println(req.body());
-            LoginRequest body = new Gson().fromJson(req.body(), LoginRequest.class);
 
             Document filtro = new Document();
             filtro.append("usuario", /*body.getUsuario()*/"diego");
@@ -61,7 +62,6 @@ public class Main {
             System.out.println(myDoc.get("pass"));
 
             System.out.println("body");
-            System.out.println(body);
 
             return new GenericResponse("Login Exitoso", true);
 
@@ -85,6 +85,10 @@ public class Main {
 
         get("/asesores", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
+            for (Document document : asesoresColl.find()) {
+                System.out.println(document.getString("nombre"));
+                model.put(String.valueOf(document.getInteger("id")), new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
+            }
             return ViewUtil.render(req, model, "/templates/asesores.vm");
         });
     }
