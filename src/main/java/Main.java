@@ -9,6 +9,7 @@ import com.mongodb.client.MongoCollection;
 import static spark.debug.DebugScreen.*;
 
 import model.Asesor;
+import model.RepositorioTesis;
 import org.bson.Document;
 
 import java.util.*;
@@ -43,6 +44,9 @@ public class Main {
         MongoCollection<Document> asesoresColl = database.getCollection("asesores");
         MongoCollection<Document> feedbackColl = database.getCollection("feedbacks");
         MongoCollection<Document> registroColl = database.getCollection("registros");
+        MongoCollection<Document> repositorioColl = database.getCollection("repositorio");
+
+
         //RUTAS
 
         get("/parar", (req, resp) -> {
@@ -85,7 +89,19 @@ public class Main {
             model.putIfAbsent("feedback", comentario);
             return ViewUtil.render(req, model, "/templates/tesis.vm");
         });
-
+            
+         get("/repositorio", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<RepositorioTesis> repo = new ArrayList<>();
+            for (Document document : repositorioColl.find()) {
+                System.out.println(document.getString("nombre"));
+                repo.add(new Feedback(document.getInteger("id"),document.getString("titulo"),document.getString("descripcion"),
+                        document.getString("estado"),document.getString("autor")));
+            }
+            model.putIfAbsent("repositorio", repo);
+            return ViewUtil.render(req, model, "/templates/repositorio.vm");
+        });
+        
         get("/registro", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             List<Registro> registro = new ArrayList<>();
