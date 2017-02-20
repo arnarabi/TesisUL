@@ -10,6 +10,7 @@ import spark.template.velocity.VelocityTemplateEngine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import model.RepositorioTesis;
 
 public class ViewUtil {
     private static VelocityTemplateEngine engine;
@@ -27,6 +28,9 @@ public class ViewUtil {
         asesores.add(new Asesor(2, "Julio Padilla", "Lunes", "14:30 - 15:30"));
         asesores.add(new Asesor(3, "Jorge Irey", "Jueves", "9:00 - 11:00"));
         model.putIfAbsent("asesores", asesores);
+        List<RepositorioTesis> repositorio = new ArrayList<>();
+        repositorio.add(new RepositorioTesis(1, "Las mil y una noches", "Ver más aquí", "incompleto", "Carlos"));
+        model.putIfAbsent("repositorio", repositorio);
         return getRenderer().render(new ModelAndView(model, templatePath));
     }
 

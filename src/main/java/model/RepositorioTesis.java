@@ -13,13 +13,15 @@ public class RepositorioTesis {
     public RepositorioTesis() {
     }
 
-    public RepositorioTesis(String titulo, String descripción, String estado, String autor, int id) {
+    public RepositorioTesis(int id, String titulo, String descripción, String estado, String autor) {
+        this.id = id;
         this.titulo = titulo;
         this.descripción = descripción;
         this.estado = estado;
         this.autor = autor;
-        this.id = id;
     }
+
+  
 
     public String getTitulo() {
         return titulo;
