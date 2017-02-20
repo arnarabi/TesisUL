@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
@@ -40,8 +41,8 @@
                 <div id="navbar1" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="/index">Tesis</a></li>
-                        <li class="active"><a href="/asesores">Asesores</a></li>
-                        <li><a href="#">Repositorio de tesis</a></li>
+                        <li><a href="/asesores">Asesores</a></li>
+                        <li  class="active"><a href="#">Repositorio de tesis</a></li>
                         <li><a href="/registro">Registro virtual</a></li>
                     </ul>
                 </div>
