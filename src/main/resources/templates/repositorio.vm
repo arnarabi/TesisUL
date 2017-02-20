@@ -62,10 +62,10 @@
     </tr>
     </thead>
     <tbody>
-    #foreach( $tesis in $tesiss )
+    #foreach( $tesis in $tesiss)
         <tr>
-            <th scope="row">${tesiss.fecha}</th>
-            <td>${tesiss.titulo}</td>
+            <th scope="row">${tesis.fecha}</th>
+            <td>${tesis.titulo}</td>
             <td>${asesor.autor}</td>
         </tr>
     #end
