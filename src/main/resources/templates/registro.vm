@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <title>Registro Vritual</title>
@@ -74,7 +73,7 @@
                 </td>
                 <td>
                     <div class="radio">
-                      #if( $registro.aprProfesor )
+                      #if( $registro.aprProfesor == true )
                         <label><input type="checkbox" checked></label>
                       #else
                         <label><input type="checkbox"></label>
@@ -83,7 +82,7 @@
                 </td>
                 <td>
                   <div class="radio">
-                    #if( $registro.aprAlumno )
+                    #if( $registro.aprAlumno == true )
                       <label><input type="checkbox" checked></label>
                     #else
                       <label><input type="checkbox"></label>
