@@ -95,13 +95,25 @@ public class Main {
             List<RepositorioTesis> repo = new ArrayList<>();
             for (Document document : repositorioColl.find()) {
                 System.out.println(document.getString("nombre"));
-                repo.add(new RepositorioTesis(document.getInteger("id"),document.getString("titulo"),document.getString("descripcion"),
-                        document.getString("estado"),document.getString("autor")));
+                repo.add(new RepositorioTesis(document.getInteger("id"), document.getString("titulo"),
+                        document.getString("descripcion"), document.getString("estado"), document.getString("autor")));
             }
             model.putIfAbsent("repositorio", repo);
             return ViewUtil.render(req, model, "/templates/repositorio.vm");
         });
-        
+         
+         
+                get("/asesores", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            List<Asesor> asesores = new ArrayList<>();
+            for (Document document : asesoresColl.find()) {
+                System.out.println(document.getString("nombre"));
+                asesores.add(new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
+            }
+            model.putIfAbsent("asesores", asesores);
+            return ViewUtil.render(req, model, "/templates/asesores.vm");
+        });
         get("/registro", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             List<Registro> registro = new ArrayList<>();
@@ -122,17 +134,7 @@ public class Main {
                 return ViewUtil.render(req, model, "/templates/registro.vm");
             });
 
-        get("/asesores", (req, resp) -> {
-            Map<String, Object> model = new HashMap<>();
 
-            List<Asesor> asesores = new ArrayList<>();
-            for (Document document : asesoresColl.find()) {
-                System.out.println(document.getString("nombre"));
-                asesores.add(new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
-            }
-            model.putIfAbsent("asesores", asesores);
-            return ViewUtil.render(req, model, "/templates/asesores.vm");
-        });
     }
 
     static int getHerokuAssignedPort() {
