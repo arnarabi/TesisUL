@@ -74,13 +74,21 @@
                 </td>
                 <td>
                     <div class="radio">
-                        <label><input type="checkbox" checked=${registro.aprProfesor}></label>
+                      #if( $registro.aprProfesor )
+                        <label><input type="checkbox" checked></label>
+                      #else
+                        <label><input type="checkbox"></label>
+                      #end                        
                     </div>
                 </td>
                 <td>
-                    <div class="radio">
-                        <label><input type="checkbox" checked=${registro.aprAlumno}></label>
-                    </div>
+                  <div class="radio">
+                    #if( $registro.aprAlumno )
+                      <label><input type="checkbox" checked></label>
+                    #else
+                      <label><input type="checkbox"></label>
+                    #end                        
+                  </div>
                 </td>
             </tr>
         #end

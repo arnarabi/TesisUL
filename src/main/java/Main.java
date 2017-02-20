@@ -96,7 +96,7 @@ public class Main {
                     check1 = true;
                 }
                 if (document.getInteger("aprAlumno") == 1) {
-                    check2 = true;
+                    check2 = true;  
                 }
                 registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
                             document.getString("descripcion"), check1, check2));
