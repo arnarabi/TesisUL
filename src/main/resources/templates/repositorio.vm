@@ -53,10 +53,10 @@
 </div>
 
 <table class="table table-striped centertable">
-    <H1 ALIGN=JUSTIFY>Añadido Recientemente</H1>
+    <H1 ALIGN=JUSTIFY>Agregado Recientemente</H1>
     <thead>
     <tr>
-        <th>Fecha de publicaión</th>
+        <th>Fecha de publicacion</th>
         <th>Titulo</th>
         <th>Autor(es)</th>
       

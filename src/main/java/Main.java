@@ -101,9 +101,8 @@ public class Main {
             model.putIfAbsent("repositorio", repo);
             return ViewUtil.render(req, model, "/templates/repositorio.vm");
         });
-         
-         
-                get("/asesores", (req, resp) -> {
+
+        get("/asesores", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
 
             List<Asesor> asesores = new ArrayList<>();
