@@ -44,7 +44,7 @@ public class Main {
         MongoCollection<Document> asesoresColl = database.getCollection("asesores");
         MongoCollection<Document> feedbackColl = database.getCollection("feedbacks");
         MongoCollection<Document> registroColl = database.getCollection("registros");
-        MongoCollection<Document> repositorioColl = database.getCollection("repositorio");
+        MongoCollection<Document> repositorioColl = database.getCollection("repositorios");
 
 
         //RUTAS
