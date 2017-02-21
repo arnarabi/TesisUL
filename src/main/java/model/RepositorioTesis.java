@@ -4,6 +4,7 @@ package model;
 public class RepositorioTesis {
 
     private int id;
+    private String fecha;
     private String titulo;
     private String autor;
 
@@ -11,11 +12,14 @@ public class RepositorioTesis {
     public RepositorioTesis() {
     }
 
-    public RepositorioTesis(int id, String titulo, String autor) {
+    public RepositorioTesis(int id, String fecha, String titulo, String autor) {
         this.id = id;
+        this.fecha = fecha;
         this.titulo = titulo;
         this.autor = autor;
     }
+
+  
 
     public String getTitulo() {
         return titulo;
@@ -39,6 +43,14 @@ public class RepositorioTesis {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
 
