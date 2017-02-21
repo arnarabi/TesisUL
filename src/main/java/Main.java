@@ -95,8 +95,8 @@ public class Main {
             List<RepositorioTesis> repo = new ArrayList<>();
             for (Document document : repositorioColl.find()) {
                 System.out.println(document.getString("nombre"));
-                repo.add(new RepositorioTesis(document.getInteger("id"), document.getString("fecha"),document.getString("titulo"),
-               document.getString("autor")));
+                repo.add(new RepositorioTesis(document.getInteger("id"),document.getString("fecha"),
+                        document.getString("titulo"),document.getString("autor")));
             }
             model.putIfAbsent("repositorio", repo);
             return ViewUtil.render(req, model, "/templates/repositorio.vm");
