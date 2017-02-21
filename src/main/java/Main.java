@@ -96,7 +96,7 @@ public class Main {
             for (Document document : repositorioColl.find()) {
                 System.out.println(document.getString("nombre"));
                 repo.add(new RepositorioTesis(document.getInteger("id"), document.getString("titulo"),
-                        document.getString("descripcion"), document.getString("estado"), document.getString("autor")));
+               document.getString("autor")));
             }
             model.putIfAbsent("repositorio", repo);
             return ViewUtil.render(req, model, "/templates/repositorio.vm");
