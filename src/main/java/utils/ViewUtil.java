@@ -29,7 +29,7 @@ public class ViewUtil {
         asesores.add(new Asesor(3, "Jorge Irey", "Jueves", "9:00 - 11:00"));
         model.putIfAbsent("asesores", asesores);
         List<RepositorioTesis> repositorio = new ArrayList<>();
-        repositorio.add(new RepositorioTesis(1, "Las mil y una noches", "Ver más aquí", "incompleto", "Carlos"));
+        repositorio.add(new RepositorioTesis(1, "19/02/2017", "Las mil y una noches", "Carlos"));
         model.putIfAbsent("repositorio", repositorio);
         return getRenderer().render(new ModelAndView(model, templatePath));
     }
