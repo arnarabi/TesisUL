@@ -19,7 +19,21 @@ public class RepositorioTesis {
         this.autor = autor;
     }
 
-  
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -37,22 +51,7 @@ public class RepositorioTesis {
         this.autor = autor;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
+   
 
 
 }
