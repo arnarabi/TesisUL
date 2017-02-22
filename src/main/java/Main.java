@@ -138,7 +138,7 @@ public class Main {
             get("/registro_tesis", (req, resp) -> {
                 Map<String, Object> model = new HashMap<>();
                 return ViewUtil.render(req, model, "/templates/tesis.vm");
-            }
+            });
         
             post("/registro_tesis", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
