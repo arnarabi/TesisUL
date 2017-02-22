@@ -3,84 +3,130 @@
         <title>Registro Vritual</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <style type="text/css">
+            form{
+                margin: 20px 0;
+            }
+            form input, button{
+                padding: 5px;
+            }
+            table{
+                width: 100%;
+                margin-bottom: 20px;
+                border-collapse: collapse;
+            }
+            table, th, td{
+                border: 1px solid #cdcdcd;
+            }
+            table th, table td{
+                padding: 10px;
+                text-align: left;
+            }
+        </style>
+        <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".add-row").click(function () {
+                    var name = $("#name").val();
+                    var email = $("#email").val();
+                    var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + name + "</td><td>" + email + "</td></tr>";
+                    $("table tbody").append(markup);
+                });
+
+                // Find and remove selected table rows
+                $(".delete-row").click(function () {
+                    $("table tbody").find('input[name="record"]').each(function () {
+                        if ($(this).is(":checked")) {
+                            $(this).parents("tr").remove();
+                        }
+                    });
+                });
+            });
+        </script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-        <link href="EstiloRegistro.css" rel="stylesheet" type="text/css"/>
-        <link href="EstiloMenu.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body>
+    <body >
         <h1 align="center">Universidad de Lima <img width="100" height="100" src="Images/logo-universidad-de-lima.png" alt="Universidad de Lima"> </h1>
 
         <div class="container">
 
             <div class="Row">
-              
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <a class="navbar-brand" href="http://www.ulima.edu.pe/"><img src="Images/logo.png" alt=""/></a>
 
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1">
-                                    <span class="sr-only">Barra de navegacion</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="http://www.ulima.edu.pe/"><img src="Images/logo.png" alt=""/></a>
 
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1">
+                                <span class="sr-only">Barra de navegacion</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
 
-                            </div>
-                            <div id="navbar1" class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="/index">Tesis</a></li>
-                                    <li><a href="/asesores">Asesores</a></li>
-                                    <li><a href="/repositorio">Repositorio de tesis</a></li>
-                                    <li class="active"><a href="/registro">Registro virtual</a></li>
-                                </ul>
-                            </div>
 
                         </div>
-                    </nav>
-                </div>
-        
+                        <div id="navbar1" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/index">Tesis</a></li>
+                                <li><a href="/asesores">Asesores</a></li>
+                                <li><a href="/repositorio">Repositorio de tesis</a></li>
+                                <li class="active"><a href="/registro">Registro virtual</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+
 
             <div class="Row">
-                <div class="col-md-10">
-                    <table class="table table-responsive">
-                        <thead>
-                            <tr>
-                                
-                                <th>Dia-Hora</th>
-                                <th>Descripcion del Registro</th>
+                <form class="form-inline">
+                    <input type="text" class="form-control"  id="Dia" placeholder="Dia">
+                    <input type="text" class="form-control"  id="DResgistro" placeholder="Descripcion">
+                    <input type="button" class="add-row" value="Agregar Registro">
+                </form>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Seleccionar</th>
+                            <th>Dia-Hora</th>
+                            <th>Descripcion del Registro</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            #foreach( $registro in $registros )
-                            <tr>
-                              
-                                <td>
-                                    <div class="radiotext">
-                                        <label for='express'>${registro.diahora}</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="radiotext">
-                                        <label for='express'>${registro.descripcion}</label>
-                                    </div>
-
-                            </tr>
-                            #end
+                        </tr>
+                    </thead>
+                    <tbody>
 
 
+                        #foreach( $registro in $registros )
+                        <tr>
+                            <td><input type="checkbox" name="record"></td>
+                            <td>
+                                <div class="radiotext">
+                                    <label for='express'>${registro.diahora}</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="radiotext">
+                                    <label for='express'>${registro.descripcion}</label>
+                                </div>
 
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="col-md-2">
-                    <Br><Br><Br><Br><Br>
-                    <button type="submit" class="btn btn-default">Registrar</button>
-                </div>
+                        </tr>
+                        #end
+
+
+
+                    </tbody>
+                </table>
+                <button type="button" class="delete-row">Delete Row</button>
+
+
+
+
+
             </div>
         </div>
     </body>
