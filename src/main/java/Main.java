@@ -66,7 +66,7 @@ public class Main {
                 resp.redirect("/login");
 
             } else if ((req.queryParams("login")).substring(0, 1).equals("A")) {
-                resp.redirect("/repositorio_asesores.vm");
+                resp.redirect("/repositorio_asesores");
                 //se va a la lista de tesis 
             } else {
                 //se va a la pantalla de tesis de alumno
@@ -113,6 +113,12 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             System.out.println(usuarioColl.find().first());
             return ViewUtil.render(req, model, "/templates/registrotesis.html");
+        });
+        
+        get("/repositorio_asesores", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            System.out.println(usuarioColl.find().first());
+            return ViewUtil.render(req, model, "/templates.asesor/repositorio_asesores.vm");
         });
         
         get("/index", (req, resp) -> {
