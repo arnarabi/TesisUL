@@ -80,8 +80,7 @@ public class Main {
                 //se va a la pantalla de tesis de alumno
                  Map<String, Object> model = new HashMap<>();
                 return ViewUtil.render(req, model, "/templates/tesis.vm");
-            }
-             return new GenericResponse("Login Exitoso", true);
+            } 
         }, new JsonTransformer());
 
         get("/login", (req, resp) -> {
