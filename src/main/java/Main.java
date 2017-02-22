@@ -127,19 +127,19 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             List<Registro> registro = new ArrayList<>();
             for (Document document : registroColl.find()) {
-            registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
-                            document.getString("descripcion")));
-
-}
-                model.putIfAbsent("registros", registro);
-                return ViewUtil.render(req, model, "/templates/registro.vm");
-            });
-        
-        
-            get("/registro_tesis", (req, resp) -> {
-                
+                registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
+                        document.getString("descripcion")));
 
             }
+            model.putIfAbsent("registros", registro);
+            return ViewUtil.render(req, model, "/templates/registro.vm");
+        });
+
+        
+            //get("/registro_tesis", (req, resp) -> {
+                
+
+            //}
         
             post("/registro_tesis", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
