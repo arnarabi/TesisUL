@@ -69,7 +69,7 @@ public class Main {
             System.out.println("body");
 
             String usuario = req.queryParams("usuario");
-            return new GenericResponse("Login Exitoso", true);
+           
             
             if (usuario.substring(0, 1).equals("A")) {
                 //se va a la lista de tesis 
@@ -81,7 +81,7 @@ public class Main {
                  Map<String, Object> model = new HashMap<>();
                 return ViewUtil.render(req, model, "/templates/tesis.vm");
             }
-            
+             return new GenericResponse("Login Exitoso", true);
         }, new JsonTransformer());
 
         get("/login", (req, resp) -> {
@@ -136,10 +136,10 @@ public class Main {
         });
 
         
-            //get("/registro_tesis", (req, resp) -> {
-                
-
-            //}
+            get("/registro_tesis", (req, resp) -> {
+                Map<String, Object> model = new HashMap<>();
+                return ViewUtil.render(req, model, "/templates/tesis.vm");
+            }
         
             post("/registro_tesis", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
