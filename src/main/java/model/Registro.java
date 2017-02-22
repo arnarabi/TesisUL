@@ -12,21 +12,17 @@ public class Registro {
     private int id;
     private String diahora;
     private String descripcion;
-    private boolean aprProfesor;
-    private boolean aprAlumno;
+    
 
     public Registro() {
     }
 
-    public Registro(int id, String diahora, String descripcion, boolean aprProfesor, boolean aprAlumno) {
+    public Registro(int id, String diahora, String descripcion) {
         this.id = id;
         this.diahora = diahora;
         this.descripcion = descripcion;
-        this.aprProfesor = aprProfesor;
-        this.aprAlumno = aprAlumno;
     }
 
-   
     public int getId() {
         return id;
     }
@@ -50,23 +46,18 @@ public class Registro {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    public boolean isAprProfesor() {
-        return aprProfesor;
-    }
-
-    public void setAprProfesor(boolean aprProfesor) {
-        this.aprProfesor = aprProfesor;
-    }
-
-    public boolean isAprAlumno() {
-        return aprAlumno;
-    }
-
-    public void setAprAlumno(boolean aprAlumno) {
-        this.aprAlumno = aprAlumno;
+    
+    
+    
+    
+    
+    
+    
     }
 
    
+    
 
-}
+   
+
+

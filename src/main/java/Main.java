@@ -76,13 +76,12 @@ public class Main {
                 Map<String, Object> model = new HashMap<>();
                 return ViewUtil.render(req, model, "/templates/repositorio_asesores.vm");
                 
-                
             } else {
                 //se va a la pantalla de tesis de alumno
                  Map<String, Object> model = new HashMap<>();
                 return ViewUtil.render(req, model, "/templates/tesis.vm");
             }
-            return new GenericResponse("Login Exitoso", true);
+            
         }, new JsonTransformer());
 
         get("/login", (req, resp) -> {
@@ -116,10 +115,11 @@ public class Main {
         
         get("/repositorio_asesores", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Asesor> asesores = new ArrayList<>();
+            List<RepositorioTesis> repositorio = new ArrayList<>();
             for (Document document : asesoresColl.find()) {
                 System.out.println(document.getString("nombre"));
-                asesores.add(new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
+                repositorio.add(new RepositorioTesis(document.getInteger("id"), document.getString("fecha"),
+                        document.getString("titulo"), document.getString("autor")));
             }
             return ViewUtil.render(req, model, "/templates/repositorio_asesores.vm");
         });
@@ -127,16 +127,8 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             List<Registro> registro = new ArrayList<>();
             for (Document document : registroColl.find()) {
-                boolean check1 = false;
-                boolean check2 = false;
-                if (document.getInteger("aprProfesor") == 1) {
-                    check1 = true;
-                }
-                if (document.getInteger("aprAlumno") == 1) {
-                    check2 = true;  
-                }
-                registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
-                            document.getString("descripcion"), check1, check2));
+            registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
+                            document.getString("descripcion")));
 
 }
                 model.putIfAbsent("registros", registro);
