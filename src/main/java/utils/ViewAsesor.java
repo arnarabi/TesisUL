@@ -22,7 +22,6 @@ public class ViewAsesor {
        List<Registro> registros = new ArrayList<>();
        List<Asesor> asesores = new ArrayList<>();
        List<RepositorioTesis> repositorio = new ArrayList<>();
-       List<Tesis> teis = new ArrayList<>();
         
        return getRenderer().render(new ModelAndView(model, templatePath));
         

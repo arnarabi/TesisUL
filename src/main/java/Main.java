@@ -73,6 +73,8 @@ public class Main {
             
             if (usuario.substring(0, 1).equals("A")) {
                 //se va a la lista de tesis 
+                
+                
             } else {
                 //se va a la pantalla de tesis de alumno
             }
@@ -139,7 +141,7 @@ public class Main {
         
         
             get("/registro_tesis", (req, resp) -> {
-                Response.;
+                
 
             }
         
