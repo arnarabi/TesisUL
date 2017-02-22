@@ -85,8 +85,8 @@
 
             <div class="Row">
                 <form class="form-inline">
-                    <input type="text" class="form-control"  id="Dia" placeholder="Dia">
-                    <input type="text" class="form-control"  id="DResgistro" placeholder="Descripcion">
+                    <input type="text" class="form-control"  id="name" placeholder="Dia">
+                    <input type="text" class="form-control"  id="email" placeholder="Descripcion">
                     <input type="button" class="add-row" value="Agregar Registro">
                 </form>
                 <table class="table table-condensed">
