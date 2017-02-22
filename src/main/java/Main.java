@@ -126,8 +126,6 @@ public class Main {
                 model.putIfAbsent("registros", registro);
                 return ViewUtil.render(req, model, "/templates/registro.vm");
             });
-
-
     }
 
     static int getHerokuAssignedPort() {
@@ -137,6 +135,5 @@ public class Main {
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
-
 }
 
