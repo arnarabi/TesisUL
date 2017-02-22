@@ -49,8 +49,7 @@
         <th>ID</th>
         <th>Dia-Hora</th>
         <th>Descripcion del Registro</th>
-        <th>Apr por profesor</th>
-        <th>Apr por alumno</th>
+       
     </tr>
     </thead>
     <tbody>
@@ -70,25 +69,7 @@
                     <div class="radiotext">
                         <label for='express'>${registro.descripcion}</label>
                     </div>
-                </td>
-                <td>
-                    <div class="radio">
-                      #if( $registro.aprProfesor == true )
-                        <label><input type="checkbox" checked></label>
-                      #else
-                        <label><input type="checkbox"></label>
-                      #end                        
-                    </div>
-                </td>
-                <td>
-                  <div class="radio">
-                    #if( $registro.aprAlumno == true )
-                      <label><input type="checkbox" checked></label>
-                    #else
-                      <label><input type="checkbox"></label>
-                    #end                        
-                  </div>
-                </td>
+                
             </tr>
         #end
     </tbody>
