@@ -66,7 +66,7 @@ public class Main {
                 resp.redirect("/login");
 
             } else if ((req.queryParams("login")).substring(0, 1).equals("A")) {
-                resp.redirect("/repositorio_asesores");
+                resp.redirect("/templates.asesor/repositorio_asesores.vm");
                 //se va a la lista de tesis 
             } else {
                 //se va a la pantalla de tesis de alumno
