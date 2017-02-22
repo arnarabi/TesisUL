@@ -36,6 +36,7 @@ public class Main {
         //DB CONFIG
 
         MongoClientURI connectionString = new MongoClientURI("mongodb://admin:admin@ds147599.mlab.com:47599/sof2");
+//            MongoClientURI connectionString = new MongoClientURI("mongodb://diego:123@ds033259.mlab.com:33259/sof2");
         MongoClient mongoClient = new MongoClient(connectionString);
         MongoDatabase database = mongoClient.getDatabase("sof2");
         MongoCollection<Document> usuarioColl = database.getCollection("usuarios");
@@ -43,8 +44,8 @@ public class Main {
         MongoCollection<Document> asesoresColl = database.getCollection("asesores");
         MongoCollection<Document> feedbackColl = database.getCollection("feedbacks");
         MongoCollection<Document> registroColl = database.getCollection("registros");
-        MongoCollection<Document> repositorioColl = database.getCollection("repositorios");
-        
+        MongoCollection<Document> repositorioColl = database.getCollection("repositorio");
+
 
         //RUTAS
 
@@ -55,33 +56,23 @@ public class Main {
 
         post("/login", (req, resp) -> {
             System.out.println("BODY");
-            System.out.println(req.body());
 
             Document filtro = new Document();
-            filtro.append("usuario", /*body.getUsuario()*/"diego");
-            filtro.append("pass", /*body.getPass()*/"123");
+            filtro.append("usuario", req.queryParams("login"));
+            filtro.append("pass", req.queryParams("password"));
 
             Document myDoc = usuarioColl.find(filtro).first();
 
-            System.out.println(myDoc.get("usuario"));
-            System.out.println(myDoc.get("pass"));
+            if (myDoc == null) {
+                resp.redirect("/login");
+            }
+            else {
+                resp.redirect("/index");
+            }
 
-            System.out.println("body");
+            return "asd";
 
-            String usuario = req.queryParams("usuario");
-           
-            
-            if (usuario.substring(0, 1).equals("A")) {
-                //se va a la lista de tesis 
-                Map<String, Object> model = new HashMap<>();
-                return ViewUtil.render(req, model, "/templates/repositorio_asesores.vm");
-                
-            } else {
-                //se va a la pantalla de tesis de alumno
-                 Map<String, Object> model = new HashMap<>();
-                return ViewUtil.render(req, model, "/templates/tesis.vm");
-            } 
-        }, new JsonTransformer());
+        });
 
         get("/login", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
@@ -104,34 +95,12 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             List<RepositorioTesis> repo = new ArrayList<>();
             for (Document document : repositorioColl.find()) {
+                System.out.println(document.getString("nombre"));
                 repo.add(new RepositorioTesis(document.getInteger("id"),document.getString("fecha"),
                         document.getString("titulo"),document.getString("autor")));
             }
             model.putIfAbsent("repositorio", repo);
             return ViewUtil.render(req, model, "/templates/repositorio.vm");
-        });
-
-        
-        get("/repositorio_asesores", (req, resp) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<RepositorioTesis> repositorio = new ArrayList<>();
-            for (Document document : asesoresColl.find()) {
-                System.out.println(document.getString("nombre"));
-                repositorio.add(new RepositorioTesis(document.getInteger("id"), document.getString("fecha"),
-                        document.getString("titulo"), document.getString("autor")));
-            }
-            return ViewUtil.render(req, model, "/templates/repositorio_asesores.vm");
-        });
-        get("/registro", (req, resp) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<Registro> registro = new ArrayList<>();
-            for (Document document : registroColl.find()) {
-                registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
-                        document.getString("descripcion")));
-
-            }
-            model.putIfAbsent("registros", registro);
-            return ViewUtil.render(req, model, "/templates/registro.vm");
         });
 
         get("/asesores", (req, resp) -> {
@@ -145,37 +114,26 @@ public class Main {
             model.putIfAbsent("asesores", asesores);
             return ViewUtil.render(req, model, "/templates/asesores.vm");
         });
-
-        get("/registro_tesis", (req, resp) -> {
+        get("/registro", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
-            return ViewUtil.render(req, model, "/templates/tesis.vm");
-        });
+            List<Registro> registro = new ArrayList<>();
+            for (Document document : registroColl.find()) {
+                boolean check1 = false;
+                boolean check2 = false;
+                if (document.getInteger("aprProfesor") == 1) {
+                    check1 = true;
+                }
+                if (document.getInteger("aprAlumno") == 1) {
+                    check2 = true;  
+                }
+                registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
+                            document.getString("descripcion"), check1, check2));
 
-        post("/registro_tesis", (req, resp) -> {
-            Map<String, Object> model = new HashMap<>();
-            String titulo = req.queryParams("titulo");
+}
+                model.putIfAbsent("registros", registro);
+                return ViewUtil.render(req, model, "/templates/registro.vm");
+            });
 
-            Document myDoc = new Document();
-            myDoc.append("titulo", titulo);
-
-            usuarioColl.insertOne(myDoc);
-
-            return ViewUtil.render(req, model, "/templates/tesis.vm");
-
-        });
-            
-            post("/registro_tesis", (req, resp) -> {
-            Map<String, Object> model = new HashMap<>();
-            String diahora = req.queryParams("diahora");
-            String descripcion = req.queryParams("descripcion");
-            Document myDoc = new Document();
-            myDoc.append("diahora", diahora);
-            myDoc.append("descripcion", descripcion);
-            registroColl.insertOne(myDoc);
-
-            return ViewUtil.render(req, model, "/templates/registro.vm");
-
-        });
 
     }
 

@@ -116,16 +116,9 @@
 
                         </tr>
                         #end
-
-
-
                     </tbody>
                 </table>
                 <button type="button" class="delete-row">Delete Row</button>
-
-
-
-
 
             </div>
         </div>
