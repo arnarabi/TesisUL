@@ -21,7 +21,6 @@ public class ViewUtil {
         model.putIfAbsent("feedback", feedback);
         model.putIfAbsent("estado", "Incompleto");
         List<Registro> registros = new ArrayList<>();
-        registros.add(new Registro(1, "Ma-7pm", "Se reviso las encuestas", true, true));
         model.putIfAbsent("registros", registros);
         List<Asesor> asesores = new ArrayList<>();
         asesores.add(new Asesor(1, "Hernán Quintana", "Martes", "11:00 - 12:30"));
