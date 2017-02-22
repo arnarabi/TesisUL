@@ -134,13 +134,24 @@ public class Main {
             return ViewUtil.render(req, model, "/templates/registro.vm");
         });
 
-        
-            get("/registro_tesis", (req, resp) -> {
-                Map<String, Object> model = new HashMap<>();
-                return ViewUtil.render(req, model, "/templates/tesis.vm");
-            });
-        
-            post("/registro_tesis", (req, resp) -> {
+        get("/asesores", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            List<Asesor> asesores = new ArrayList<>();
+            for (Document document : asesoresColl.find()) {
+                System.out.println(document.getString("nombre"));
+                asesores.add(new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
+            }
+            model.putIfAbsent("asesores", asesores);
+            return ViewUtil.render(req, model, "/templates/asesores.vm");
+        });
+
+        get("/registro_tesis", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            return ViewUtil.render(req, model, "/templates/tesis.vm");
+        });
+
+        post("/registro_tesis", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             String titulo = req.queryParams("titulo");
 
