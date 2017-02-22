@@ -118,7 +118,7 @@ public class Main {
         get("/repositorio_asesores", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             System.out.println(usuarioColl.find().first());
-            return ViewUtil.render(req, model, "/templates.asesor/repositorio_asesores.vm");
+            return ViewUtil.render(req, model, "/templates/repositorio_asesores.vm");
         });
         
         get("/index", (req, resp) -> {
