@@ -130,7 +130,16 @@ public class Main {
             model.putIfAbsent("feedback", comentario);
             return ViewUtil.render(req, model, "/templates/tesis_alumno.vm");
         });
-        
+        get("/tesis", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Feedback> comentario = new ArrayList<>();
+            for (Document document : feedbackColl.find()) {
+                System.out.println(document.getString("nombre"));
+                comentario.add(new Feedback(document.getString("jurado"), document.getString("desc"), document.getString("fecha")));
+            }
+            model.putIfAbsent("feedback", comentario);
+            return ViewUtil.render(req, model, "/templates/tesis.vm");
+        });
         
 
         get("/repositorio", (req, resp) -> {
