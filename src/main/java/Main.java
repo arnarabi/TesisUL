@@ -111,7 +111,7 @@ public class Main {
         get("/registro_tesis", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             System.out.println(usuarioColl.find().first());
-            return ViewUtil.render(req, model, "/templates/registrotesis.html");
+            return ViewUtil.render(req, model, "/templates/registro_tesis.vm");
         });
         
         get("/repositorio_asesores", (req, resp) -> {
