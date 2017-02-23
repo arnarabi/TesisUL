@@ -128,7 +128,7 @@ public class Main {
                 comentario.add(new Feedback(document.getString("jurado"), document.getString("desc"), document.getString("fecha")));
             }
             model.putIfAbsent("feedback", comentario);
-            return ViewUtil.render(req, model, "/templates/tesis.vm");
+            return ViewUtil.render(req, model, "/templates/tesis_alumno.vm");
         });
         
         
