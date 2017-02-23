@@ -55,6 +55,7 @@
 <table class="table table-striped centertable">
     <thead>
     <tr>
+        <th>Seleccionar</th>
         <th>#</th>
         <th>Nombre del Asesor</th>
         <th>Día</th>
@@ -64,6 +65,7 @@
     <tbody>
     #foreach( $asesor in $asesores )
         <tr>
+            <td><input type="checkbox" name="record"></td>
             <th scope="row">${asesor.id}</th>
             <td>${asesor.nombre}</td>
             <td>${asesor.dia}</td>
