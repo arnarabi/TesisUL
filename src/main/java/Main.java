@@ -159,18 +159,18 @@ public class Main {
             return ViewUtil.render(req, model, "/templates/asesores.vm");
         });
         
-        get("/tesis", (req, resp) -> {
-            Map<String, Object> model = new HashMap<>();
-
-            List<Tesis> tesis = new ArrayList<>();
-            for (Document document : tesisColl.find()) {
-                System.out.println(document.getString("nombre"));
-                tesis.add(new Tesis(document.getInteger("id"), document.getString("titulo"),
-                        document.getInteger("rating")));
-            }
-            model.putIfAbsent("asesores", asesores);
-            return ViewUtil.render(req, model, "/templates/tesis.vm");
-        });
+//        get("/tesis", (req, resp) -> {
+//            Map<String, Object> model = new HashMap<>();
+//
+//            List<Tesis> tesis = new ArrayList<>();
+//            for (Document document : tesisColl.find()) {
+//                System.out.println(document.getString("nombre"));
+//                tesis.add(new Tesis(document.getInteger("id"), document.getString("titulo"),
+//                        document.getInteger("rating")));
+//            }
+//            model.putIfAbsent("asesores", asesores);
+//            return ViewUtil.render(req, model, "/templates/tesis.vm");
+//        });
         
         
         
