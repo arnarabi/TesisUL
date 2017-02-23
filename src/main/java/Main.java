@@ -168,6 +168,9 @@ public class Main {
             model.putIfAbsent("registros", registro);
             return ViewUtil.render(req, model, "/templates/registro.vm");
         });
+        
+        
+        
     }
 
     static int getHerokuAssignedPort() {
