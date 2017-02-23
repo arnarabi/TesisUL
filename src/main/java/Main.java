@@ -16,6 +16,7 @@ import org.bson.Document;
 import java.util.*;
 import model.Feedback;
 import model.Registro;
+import model.Tesis;
 
 import static spark.Spark.*;
 import static spark.Spark.staticFiles;
@@ -118,7 +119,7 @@ public class Main {
         get("/repositorio_asesores", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             System.out.println(usuarioColl.find().first());
-            return ViewUtil.render(req, model, "/templates.asesor/repositorio_asesores.vm");
+            return ViewUtil.render(req, model, "/templates/repositorio_asesores.vm");
         });
         
         get("/index", (req, resp) -> {
@@ -157,6 +158,23 @@ public class Main {
             model.putIfAbsent("asesores", asesores);
             return ViewUtil.render(req, model, "/templates/asesores.vm");
         });
+        
+//        get("/tesis", (req, resp) -> {
+//            Map<String, Object> model = new HashMap<>();
+//
+//            List<Tesis> tesis = new ArrayList<>();
+//            for (Document document : tesisColl.find()) {
+//                System.out.println(document.getString("nombre"));
+//                tesis.add(new Tesis(document.getInteger("id"), document.getString("titulo"),
+//                        document.getInteger("rating")));
+//            }
+//            model.putIfAbsent("asesores", asesores);
+//            return ViewUtil.render(req, model, "/templates/tesis.vm");
+//        });
+        
+        
+        
+        
         get("/registro", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             List<Registro> registro = new ArrayList<>();

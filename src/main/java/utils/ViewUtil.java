@@ -30,6 +30,7 @@ public class ViewUtil {
         List<RepositorioTesis> repositorio = new ArrayList<>();
         repositorio.add(new RepositorioTesis(1, "19/02/2017", "Las mil y una noches", "Carlos"));
         model.putIfAbsent("repositorio", repositorio);
+        
         return getRenderer().render(new ModelAndView(model, templatePath));
     }
 
