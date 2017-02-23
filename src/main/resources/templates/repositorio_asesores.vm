@@ -37,20 +37,7 @@
                     </button>
 
 
-                </div>
-                <div id="navbar1" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/index">Tesis</a></li>
-                        <li><a href="/asesores">Asesores</a></li>
-                        <li  class="active"><a href="#">Repositorio de tesis</a></li>
-                        <li><a href="/registro">Registro virtual</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </nav>
-    </div>
-
+            
 <div class="container">
  <table class="table table-striped centertable">
 
