@@ -71,7 +71,8 @@
             <th scope="row">${tesis.fecha}</th>
             <td>${tesis.titulo}</td>
             <td>${tesis.autor}</td>
-            <td>${tesis.link}</td>
+            <td>${href="\tesis?id=${tesis.id}"}</td>
+
         </tr>
     #end
     </tbody>

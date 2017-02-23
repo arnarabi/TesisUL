@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 public class Tesis {
+    private int id;
     private String titulo;
     private int rating;
     private List<Feedback> feedback;
@@ -10,11 +11,22 @@ public class Tesis {
     public Tesis() {
     }
 
-    public Tesis(String titulo, int rating, List<Feedback> feedback) {
+    public Tesis(int id, String titulo, int rating, List<Feedback> feedback) {
+        this.id = id;
         this.titulo = titulo;
         this.rating = rating;
         this.feedback = feedback;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+  
 
     public String getTitulo() {
         return titulo;
