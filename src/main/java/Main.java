@@ -16,6 +16,7 @@ import java.util.*;
 import static spark.Spark.*;
 import static spark.Spark.staticFiles;
 
+import org.bson.types.ObjectId;
 import request.LoginRequest;
 import utils.JsonTransformer;
 import utils.ViewUtil;
@@ -40,7 +41,7 @@ public class Main {
         MongoCollection<Document> asesoresColl = database.getCollection("asesores");
         MongoCollection<Document> feedbackColl = database.getCollection("feedbacks");
         MongoCollection<Document> registroColl = database.getCollection("registros");
-        MongoCollection<Document> repositorioColl = database.getCollection("repositorio");
+        // MongoCollection<Document> repositorioColl = database.getCollection("repositorio");
 
         final String[] idUsuario = new String[1];
         idUsuario[0] = "diego";
@@ -95,8 +96,10 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
 
             for (Document document : tesisColl.find(new Document().append("alumno", idUsuario[0]))) {
+                model.put("oid", document.getObjectId("_id").toString());
                 model.put("titulo", document.getString("titulo"));
                 model.put("rating", document.getInteger("rating"));
+                model.put("estado", document.getString("estado"));
             }
 
             List<Feedback> comentario = new ArrayList<>();
@@ -120,6 +123,35 @@ public class Main {
             usuarioColl.insertOne(myDoc);
 
             return ViewUtil.render(req, model, "/templates/tesis.vm");
+
+        });
+
+        post("/guardar_correc", (req, resp) -> {
+
+            System.out.println("GUARDAR");
+            System.out.println(req.queryParams("rating-input-1"));
+            System.out.println(req.queryParams("oid"));
+
+            tesisColl.updateOne(new Document("_id", new ObjectId(req.queryParams("oid"))),
+                    new Document("$set", new Document("rating", Integer.parseInt(req.queryParams("rating-input-1"))).append("estado", req.queryParams("estado"))));
+
+            resp.redirect("/repositorio_asesores");
+
+            return "";
+
+        });
+
+        post("/guardar_cambios", (req, resp) -> {
+
+            System.out.println("GUARDAR");
+            System.out.println(req.queryParams("estado"));
+            System.out.println(req.queryParams("oid"));
+
+            tesisColl.updateOne(new Document("_id", new ObjectId(req.queryParams("oid"))), new Document("$set", new Document("estado", req.queryParams("estado"))));
+
+            resp.redirect("/index");
+
+            return "";
 
         });
 
@@ -164,10 +196,11 @@ public class Main {
         get("/repositorio_asesores", (req, resp) -> {
             System.out.println("repositorio");
             Map<String, Object> model = new HashMap<>();
-            List<RepositorioTesis> repo = new ArrayList<>();
-            for (Document document : repositorioColl.find()) {
-                repo.add(new RepositorioTesis(document.getInteger("id"), document.getString("fecha"),
-                        document.getString("titulo"), document.getString("autor")));
+            List<Tesis> repo = new ArrayList<>();
+            for (Document document : tesisColl.find()) {
+                Tesis tesis = new Tesis(document.getString("titulo"), document.getInteger("rating"), document.getString("alumno"), document.getString("fecha"));
+                tesis.setEstado(document.getString("estado"));
+                repo.add(tesis);
             }
             model.putIfAbsent("repositorio", repo);
             System.out.println(usuarioColl.find().first());
@@ -176,9 +209,11 @@ public class Main {
 
         get("/tesis_corregir", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
-            for (Document document : tesisColl.find(new Document().append("alumno", idUsuario[0]))) {
+            for (Document document : tesisColl.find(new Document().append("titulo", req.queryParams("tesis")))) {
+                model.put("oid", document.getObjectId("_id").toString());
                 model.put("titulo", document.getString("titulo"));
                 model.put("rating", document.getInteger("rating"));
+                model.put("estado", document.getString("estado"));
             }
             return ViewUtil.render(req, model, "/templates/tesis.vm");
         });
@@ -198,10 +233,10 @@ public class Main {
         get("/repositorio", (req, resp) -> {
             System.out.println("repositorio");
             Map<String, Object> model = new HashMap<>();
-            List<RepositorioTesis> repo = new ArrayList<>();
-            for (Document document : repositorioColl.find()) {
-                repo.add(new RepositorioTesis(document.getInteger("id"), document.getString("fecha"),
-                        document.getString("titulo"), document.getString("autor")));
+            List<Tesis> repo = new ArrayList<>();
+            for (Document document : tesisColl.find()) {
+                repo.add(new Tesis(document.getString("titulo"),
+                        document.getInteger("rating"), document.getString("alumno"), document.getString("fecha")));
             }
             model.putIfAbsent("repositorios", repo);
             return ViewUtil.render(req, model, "/templates/repositorio.vm");
@@ -224,10 +259,9 @@ public class Main {
 
         post("/cambiarasesor", (req, resp) -> {
 
-            //TODO
-            //no sé por qué hay error al hacer update: " javalangIllegalArgumentException. Invalid BSON field name idasesor.
-            usuarioColl.updateOne(new Document().append("usuario", idUsuario[0]),
-                    new Document().append("idasesor", req.queryParams("idasesor")));
+            idAsesor[0] = Integer.parseInt(req.queryParams("idasesor"));
+
+            usuarioColl.updateOne(new Document("usuario", idUsuario[0]), new Document("$set", new Document("idasesor", req.queryParams("idasesor"))));
 
             resp.redirect("/asesores");
 

@@ -68,7 +68,7 @@
             <th scope="row">${tesis.fecha}</th>
             <td>${tesis.titulo}</td>
             <td>${tesis.autor}</td>
-            <td><a href="/tesis_corregir">Corregir</a></td>
+            <td><a href="/tesis_corregir?tesis=${tesis.titulo}">Corregir</a></td>
         </tr>
     #end
     </tbody>

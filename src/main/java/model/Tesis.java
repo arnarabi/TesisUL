@@ -3,30 +3,23 @@ package model;
 import java.util.List;
 
 public class Tesis {
-    private int id;
     private String titulo;
     private int rating;
+    private String autor;
+    private String fecha;
+    private String estado;
     private List<Feedback> feedback;
 
     public Tesis() {
     }
 
-    public Tesis(int id, String titulo, int rating, List<Feedback> feedback) {
-        this.id = id;
+    public Tesis(String titulo, int rating, String autor, String fecha) {
         this.titulo = titulo;
         this.rating = rating;
-        this.feedback = feedback;
+        this.autor = autor;
+        this.fecha = fecha;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-  
     public String getTitulo() {
         return titulo;
     }
@@ -43,11 +36,35 @@ public class Tesis {
         this.rating = rating;
     }
 
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
     public List<Feedback> getFeedback() {
         return feedback;
     }
 
     public void setFeedback(List<Feedback> feedback) {
         this.feedback = feedback;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
