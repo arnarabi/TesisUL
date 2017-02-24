@@ -56,38 +56,42 @@
             <div class="Row">
 
                 <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="http://www.ulima.edu.pe/"><img src="Images/logo.png" alt=""/></a>
-
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1">
-                                <span class="sr-only">Barra de navegacion</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
+                            <div class="container-fluid">
+                                <div class="navbar-header">
 
 
-                        </div>
-                        <div id="navbar1" class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-                                <li><a href="/index">Tesis</a></li>
-                                <li><a href="/asesores">Asesores</a></li>
-                                <li><a href="/repositorio">Repositorio de tesis</a></li>
-                                <li class="active"><a href="/registro">Registro virtual</a></li>
-                            </ul>
-                        </div>
+                                    <a class="navbar-brand" href="http://www.ulima.edu.pe/"><img src="Images/logo.png" alt=""/></a>
 
-                    </div>
-                </nav>
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1">
+                                        <span class="sr-only">Barra de navegacion</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+
+
+                                </div>
+                                <div id="navbar1" class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/index">Tesis</a></li>
+                                        <li><a href="/asesores">Asesores</a></li>
+                                        <li><a href="/repositorio">Repositorio de tesis</a></li>
+                                        <li class="active"><a href="/registro">Registro virtual</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </nav>
             </div>
+
+            <br><br><br>
 
 
             <div class="Row">
-                <form class="form-inline">
-                    <input type="text" class="form-control"  id="name" placeholder="Dia">
-                    <input type="text" class="form-control"  id="email" placeholder="Descripcion">
-                    <input type="button" class="add-row" value="Agregar Registro">
+                <form class="form-inline" method="post" action="/agregar">
+                    <input type="text" class="form-control" name="dia" id="dia" placeholder="Dia">
+                    <input type="text" class="form-control" name="desc" id="desc" placeholder="Descripcion">
+                    <button type="submit" class="delete-row">Agregar Registro</button>
                 </form>
                 <table class="table table-condensed">
                     <thead>
@@ -118,7 +122,7 @@
                         #end
                     </tbody>
                 </table>
-                <button type="button" class="delete-row">Delete Row</button>
+                <button type="button" class="delete-row">Eliminar</button>
 
             </div>
         </div>

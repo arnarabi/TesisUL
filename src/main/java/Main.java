@@ -8,13 +8,10 @@ import com.mongodb.client.MongoCollection;
 
 import static spark.debug.DebugScreen.*;
 
-import model.Asesor;
-import model.RepositorioTesis;
+import model.*;
 import org.bson.Document;
 
 import java.util.*;
-import model.Feedback;
-import model.Registro;
 
 import static spark.Spark.*;
 import static spark.Spark.staticFiles;
@@ -45,14 +42,26 @@ public class Main {
         MongoCollection<Document> registroColl = database.getCollection("registros");
         MongoCollection<Document> repositorioColl = database.getCollection("repositorio");
 
+        final String[] idUsuario = new String[1];
+        idUsuario[0] = "diego";
+        final int[] idAsesor = new int[1];
+        idAsesor[0] = 1;
+
         //RUTAS
         get("/parar", (req, resp) -> {
             stop();
             return "";
         });
 
+        get("/", (req, resp) -> {
+            resp.redirect("/index");
+            return "";
+        });
+
         post("/login", (req, resp) -> {
             System.out.println("BODY");
+
+            idUsuario[0] = req.queryParams("login");
 
             Document filtro = new Document();
             filtro.append("usuario", req.queryParams("login"));
@@ -82,6 +91,25 @@ public class Main {
             return ViewUtil.render(req, model, "/templates/login.html");
         });
 
+        get("/index", (req, resp) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            for (Document document : tesisColl.find(new Document().append("alumno", idUsuario[0]))) {
+                model.put("titulo", document.getString("titulo"));
+                model.put("rating", document.getInteger("rating"));
+            }
+
+            List<Feedback> comentario = new ArrayList<>();
+
+            for (Document document : feedbackColl.find()) {
+                System.out.println(document.getString("nombre"));
+                comentario.add(new Feedback(document.getString("jurado"), document.getString("desc"), document.getString("fecha")));
+            }
+
+            model.putIfAbsent("feedback", comentario);
+            return ViewUtil.render(req, model, "/templates/tesis_alumno.vm");
+        });
+
         post("/registro_tesis", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             String titulo = req.queryParams("titulo");
@@ -92,6 +120,25 @@ public class Main {
             usuarioColl.insertOne(myDoc);
 
             return ViewUtil.render(req, model, "/templates/tesis.vm");
+
+        });
+
+        post("/registrar", (req, resp) -> {
+            System.out.println("BODY");
+            System.out.println(req.queryParams("title"));
+
+            Document myDoc = new Document();
+            myDoc.append("titulo", req.queryParams("title"));
+            myDoc.append("rating", 0);
+            myDoc.append("alumno", idUsuario[0]);
+
+            System.out.println(myDoc.toString());
+
+            tesisColl.insertOne(myDoc);
+
+            resp.redirect("/index");
+
+            return "";
 
         });
 
@@ -115,21 +162,27 @@ public class Main {
         });
         
         get("/repositorio_asesores", (req, resp) -> {
+            System.out.println("repositorio");
             Map<String, Object> model = new HashMap<>();
+            List<RepositorioTesis> repo = new ArrayList<>();
+            for (Document document : repositorioColl.find()) {
+                repo.add(new RepositorioTesis(document.getInteger("id"), document.getString("fecha"),
+                        document.getString("titulo"), document.getString("autor")));
+            }
+            model.putIfAbsent("repositorio", repo);
             System.out.println(usuarioColl.find().first());
             return ViewUtil.render(req, model, "/templates/repositorio_asesores.vm");
         });
-        
-        get("/index", (req, resp) -> {
+
+        get("/tesis_corregir", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Feedback> comentario = new ArrayList<>();
-            for (Document document : feedbackColl.find()) {
-                System.out.println(document.getString("nombre"));
-                comentario.add(new Feedback(document.getString("jurado"), document.getString("desc"), document.getString("fecha")));
+            for (Document document : tesisColl.find(new Document().append("alumno", idUsuario[0]))) {
+                model.put("titulo", document.getString("titulo"));
+                model.put("rating", document.getInteger("rating"));
             }
-            model.putIfAbsent("feedback", comentario);
-            return ViewUtil.render(req, model, "/templates/tesis_alumno.vm");
+            return ViewUtil.render(req, model, "/templates/tesis.vm");
         });
+
         get("/tesis", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             List<Feedback> comentario = new ArrayList<>();
@@ -143,14 +196,14 @@ public class Main {
         
 
         get("/repositorio", (req, resp) -> {
+            System.out.println("repositorio");
             Map<String, Object> model = new HashMap<>();
             List<RepositorioTesis> repo = new ArrayList<>();
             for (Document document : repositorioColl.find()) {
-                System.out.println(document.getString("nombre"));
                 repo.add(new RepositorioTesis(document.getInteger("id"), document.getString("fecha"),
                         document.getString("titulo"), document.getString("autor")));
             }
-            model.putIfAbsent("repositorio", repo);
+            model.putIfAbsent("repositorios", repo);
             return ViewUtil.render(req, model, "/templates/repositorio.vm");
         });
 
@@ -159,23 +212,56 @@ public class Main {
 
             List<Asesor> asesores = new ArrayList<>();
             for (Document document : asesoresColl.find()) {
-                System.out.println(document.getString("nombre"));
-                asesores.add(new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora")));
+                Asesor a = new Asesor(document.getInteger("id"), document.getString("nombre"), document.getString("dia"), document.getString("hora"));
+                if (idAsesor[0] == document.getInteger("id")) {
+                    a.setAsignado(true);
+                }
+                asesores.add(a);
             }
             model.putIfAbsent("asesores", asesores);
             return ViewUtil.render(req, model, "/templates/asesores.vm");
         });
+
+        post("/cambiarasesor", (req, resp) -> {
+
+            //TODO
+            //no sé por qué hay error al hacer update: " javalangIllegalArgumentException. Invalid BSON field name idasesor.
+            usuarioColl.updateOne(new Document().append("usuario", idUsuario[0]),
+                    new Document().append("idasesor", req.queryParams("idasesor")));
+
+            resp.redirect("/asesores");
+
+            return "";
+
+        });
+
         get("/registro", (req, resp) -> {
             Map<String, Object> model = new HashMap<>();
             List<Registro> registro = new ArrayList<>();
             for (Document document : registroColl.find()) {
 
-                registro.add(new Registro(document.getInteger("id"), document.getString("diahora"),
+                registro.add(new Registro(document.getString("diahora"),
                         document.getString("descripcion")));
 
             }
             model.putIfAbsent("registros", registro);
             return ViewUtil.render(req, model, "/templates/registro.vm");
+        });
+
+        post("/agregar", (req, resp) -> {
+
+            Document myDoc = new Document();
+            myDoc.append("diahora", req.queryParams("dia"));
+            myDoc.append("descripcion", req.queryParams("desc"));
+
+            System.out.println(myDoc.toString());
+
+            registroColl.insertOne(myDoc);
+
+            resp.redirect("/registro");
+
+            return "";
+
         });
         
         

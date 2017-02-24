@@ -55,21 +55,30 @@
 <table class="table table-striped centertable">
     <thead>
     <tr>
-        <th>Seleccionar</th>
         <th>#</th>
         <th>Nombre del Asesor</th>
         <th>Día</th>
         <th>Hora</th>
+        <th>Cambiar</th>
     </tr>
     </thead>
     <tbody>
     #foreach( $asesor in $asesores )
         <tr>
-            <td><input type="checkbox" name="record"></td>
             <th scope="row">${asesor.id}</th>
             <td>${asesor.nombre}</td>
             <td>${asesor.dia}</td>
             <td>${asesor.hora}</td>
+            <td>
+                #if( ${asesor.asignado} == false )
+                    <form class="form-inline" method="post" action="/cambiarasesor">
+                        <input type="hidden" id="idasesor" name="idasesor" value=${asesor.id}>
+                        <button type="submit" class="delete-row">Seleccionar</button>
+                    </form>
+                #else
+                    <p>Asesor Actual</p>
+                #end
+            </td>
         </tr>
     #end
     </tbody>

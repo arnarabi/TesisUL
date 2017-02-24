@@ -56,6 +56,7 @@
                 <div class="form-group">
 
                     <legend>Rating</legend>
+                    <p> $rating / 5 </p>
                     <div class="rating-wrapper">
                         <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1"/>
                         <label for="rating-input-1-5" class="rating-star"></label>
@@ -83,14 +84,14 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2"
-                                   value="option2">
+                                   value="option2" checked>
                             Desaprobado
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3"
-                                                       value="option3" checked>
+                                                       value="option3">
                             Incompleto
                         </label>
                     </div>
@@ -110,26 +111,11 @@
                             <small>${feed.fecha}</small>
                         </a>
                     #end
-                    <!--eliminar-->
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Jurado 2</h5>
-                        </div>
-                        <p class="mb-1">Mejorar backend</p>
-                        <small class="text-muted">3 days ago</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Jurado 3</h5>
-                        </div>
-                        <p class="mb-1">Terminar programacion</p>
-                        <small class="text-muted">1 days ago</small>
-                    </a>
                 </div>
 
 
                 <button type="submit" class="btn btn-primary">Ok</button>
-                <input type="button" onclick="location.href='registro_tesis.vm';" value="Registrar tesis" />
+                <input type="button" onclick="location.href='/registro_tesis';" value="Registrar tesis" />
                
             </form>
 

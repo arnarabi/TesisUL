@@ -17,8 +17,7 @@ public class Registro {
     public Registro() {
     }
 
-    public Registro(int id, String diahora, String descripcion) {
-        this.id = id;
+    public Registro(String diahora, String descripcion) {
         this.diahora = diahora;
         this.descripcion = descripcion;
     }

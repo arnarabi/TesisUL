@@ -5,6 +5,7 @@ public class Asesor {
     private String nombre;
     private String dia;
     private String hora;
+    private boolean asignado;
 
     public Asesor() {
     }
@@ -46,5 +47,13 @@ public class Asesor {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public boolean isAsignado() {
+        return asignado;
+    }
+
+    public void setAsignado(boolean asignado) {
+        this.asignado = asignado;
     }
 }

@@ -53,7 +53,7 @@
 </div>
 
 <table class="table table-striped centertable">
-    <H1 ALIGN=JUSTIFY>Agregado Recientemente</H1>
+    <H1 ALIGN=CENTER>Agregado Recientemente</H1>
     <thead>
     <tr>
         <th>Fecha de publicacion</th>
