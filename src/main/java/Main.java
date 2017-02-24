@@ -11,6 +11,8 @@ import static spark.debug.DebugScreen.*;
 import model.*;
 import org.bson.Document;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static spark.Spark.*;
@@ -163,6 +165,12 @@ public class Main {
             myDoc.append("titulo", req.queryParams("title"));
             myDoc.append("rating", 0);
             myDoc.append("alumno", idUsuario[0]);
+
+            Date date = Calendar.getInstance().getTime();
+            // Display a date in day, month, year format
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String fecha = formatter.format(date);
+            myDoc.append("fecha", fecha);
 
             System.out.println(myDoc.toString());
 
